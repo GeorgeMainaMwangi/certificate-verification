@@ -53,10 +53,36 @@ button {
   padding: 12px 18px;
   border-radius: 6px;
   cursor: pointer;
+  margin-right: 8px;
+  margin-top: 8px;
 }
 
 button:hover {
   background: #0056b3;
+}
+
+button.secondary {
+  background: #6c757d;
+}
+
+button.secondary:hover {
+  background: #545b62;
+}
+
+button.danger {
+  background: #dc3545;
+}
+
+button.danger:hover {
+  background: #b02a37;
+}
+
+button.success {
+  background: #198754;
+}
+
+button.success:hover {
+  background: #146c43;
 }
 
 .hidden {
@@ -79,6 +105,33 @@ button:hover {
   padding: 10px;
   background: #fff;
   display: inline-block;
+}
+
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.certificate-item {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 15px;
+  margin-top: 12px;
+  background: #fafafa;
+}
+
+.certificate-item h4 {
+  margin: 0 0 10px 0;
+}
+
+.certificate-actions {
+  margin-top: 10px;
+}
+
+#totalCertificates {
+  font-weight: bold;
+  color: #444;
 }
 
 @media (max-width: 768px) {
