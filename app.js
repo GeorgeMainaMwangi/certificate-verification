@@ -13,21 +13,36 @@ function adminLogin() {
   const password = document.getElementById("adminPassword").value.trim();
   const loginStatus = document.getElementById("loginStatus");
   const adminPanel = document.getElementById("adminPanel");
+  const issuedCertificatesCard = document.getElementById("issuedCertificatesCard");
 
   if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
     isAdminLoggedIn = true;
     loginStatus.innerText = "Admin login successful.";
     loginStatus.style.color = "green";
     adminPanel.classList.remove("hidden");
+    issuedCertificatesCard.classList.remove("hidden");
+    renderIssuedCertificates();
   } else {
     loginStatus.innerText = "Invalid admin credentials.";
     loginStatus.style.color = "red";
   }
 }
 
+function logoutAdmin() {
+  isAdminLoggedIn = false;
+  document.getElementById("loginStatus").innerText = "Admin logged out.";
+  document.getElementById("loginStatus").style.color = "#444";
+  document.getElementById("adminPanel").classList.add("hidden");
+  document.getElementById("issuedCertificatesCard").classList.add("hidden");
+  document.getElementById("qrSection").classList.add("hidden");
+  document.getElementById("adminUsername").value = "";
+  document.getElementById("adminPassword").value = "";
+}
+
 function issueCertificate() {
   if (!isAdminLoggedIn) {
     document.getElementById("issueStatus").innerText = "Please login as admin first.";
+    document.getElementById("issueStatus").style.color = "red";
     return;
   }
 
@@ -60,7 +75,13 @@ function issueCertificate() {
   issueStatus.innerText = "Certificate issued successfully.";
   issueStatus.style.color = "green";
 
+  document.getElementById("certificateId").value = "";
+  document.getElementById("studentName").value = "";
+  document.getElementById("courseName").value = "";
+  document.getElementById("dateIssued").value = "";
+
   generateQRCode(certificateId);
+  renderIssuedCertificates();
 }
 
 function verifyCertificate() {
@@ -84,6 +105,58 @@ function verifyCertificate() {
   } else {
     resultDiv.innerHTML = `<p><strong>Status:</strong> Certificate not found</p>`;
   }
+}
+
+function verifyFromList(certificateId) {
+  document.getElementById("verifyId").value = certificateId;
+  verifyCertificate();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function deleteCertificate(certificateId) {
+  if (!isAdminLoggedIn) return;
+
+  const confirmed = confirm(`Delete certificate ${certificateId}?`);
+  if (!confirmed) return;
+
+  delete certificates[certificateId];
+  saveCertificates();
+  renderIssuedCertificates();
+
+  const verifyInput = document.getElementById("verifyId").value.trim();
+  if (verifyInput === certificateId) {
+    document.getElementById("verifyResult").innerHTML = "<p><strong>Status:</strong> Certificate deleted</p>";
+  }
+}
+
+function renderIssuedCertificates() {
+  const listContainer = document.getElementById("issuedCertificatesList");
+  const totalCertificates = document.getElementById("totalCertificates");
+  const ids = Object.keys(certificates);
+
+  totalCertificates.innerText = `Total Certificates: ${ids.length}`;
+
+  if (ids.length === 0) {
+    listContainer.innerHTML = "<p>No certificates issued yet.</p>";
+    return;
+  }
+
+  listContainer.innerHTML = ids.map(id => {
+    const cert = certificates[id];
+    return `
+      <div class="certificate-item">
+        <h4>${id}</h4>
+        <p><strong>Student:</strong> ${cert.studentName}</p>
+        <p><strong>Course:</strong> ${cert.courseName}</p>
+        <p><strong>Date Issued:</strong> ${cert.dateIssued}</p>
+        <div class="certificate-actions">
+          <button class="success" onclick="verifyFromList('${id}')">Verify</button>
+          <button onclick="generateQRCode('${id}')">QR Code</button>
+          <button class="danger" onclick="deleteCertificate('${id}')">Delete</button>
+        </div>
+      </div>
+    `;
+  }).join("");
 }
 
 function generateQRCode(certificateId) {
