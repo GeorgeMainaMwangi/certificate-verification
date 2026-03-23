@@ -3,24 +3,37 @@ body {
   background: #f4f6f8;
   margin: 0;
   padding: 0;
+  color: #222;
 }
 
 .container {
   width: 90%;
-  max-width: 700px;
+  max-width: 1000px;
   margin: 40px auto;
 }
 
 h1 {
   text-align: center;
-  color: #222;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  text-align: center;
+  color: #666;
+  margin-bottom: 30px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
 }
 
 .card {
-  background: white;
+  background: #fff;
   padding: 20px;
   margin-bottom: 20px;
-  border-radius: 10px;
+  border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -35,7 +48,7 @@ input {
 
 button {
   background: #007bff;
-  color: white;
+  color: #fff;
   border: none;
   padding: 12px 18px;
   border-radius: 6px;
@@ -46,9 +59,30 @@ button:hover {
   background: #0056b3;
 }
 
-#verifyResult {
+.hidden {
+  display: none;
+}
+
+#verifyResult,
+#qrcode,
+#qrLink {
   margin-top: 15px;
+}
+
+#verifyResult {
   background: #f9f9f9;
   padding: 12px;
   border-radius: 6px;
+}
+
+#qrcode {
+  padding: 10px;
+  background: #fff;
+  display: inline-block;
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
 }
