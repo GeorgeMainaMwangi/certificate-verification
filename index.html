@@ -16,7 +16,10 @@
         <h2>Admin Login</h2>
         <input type="text" id="adminUsername" placeholder="Admin Username" />
         <input type="password" id="adminPassword" placeholder="Admin Password" />
-        <button onclick="adminLogin()">Login</button>
+        <div class="btn-row">
+          <button onclick="adminLogin()">Login</button>
+          <button class="secondary" onclick="logoutAdmin()">Logout</button>
+        </div>
         <p id="loginStatus"></p>
       </div>
 
@@ -42,6 +45,12 @@
         <div id="qrcode"></div>
         <p id="qrLink"></p>
       </div>
+    </div>
+
+    <div class="card hidden" id="issuedCertificatesCard">
+      <h2>Issued Certificates</h2>
+      <p id="totalCertificates"></p>
+      <div id="issuedCertificatesList"></div>
     </div>
   </div>
 
