@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Certificate Verification System</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Blockchain Certificate Verification System</h1>
+
+    <div class="card">
+      <h2>Issue Certificate</h2>
+      <input type="text" id="certificateId" placeholder="Certificate ID" />
+      <input type="text" id="studentName" placeholder="Student Name" />
+      <input type="text" id="courseName" placeholder="Course Name" />
+      <input type="text" id="dateIssued" placeholder="Date Issued" />
+      <button onclick="issueCertificate()">Issue Certificate</button>
+      <p id="issueStatus"></p>
+    </div>
+
+    <div class="card">
+      <h2>Verify Certificate</h2>
+      <input type="text" id="verifyId" placeholder="Enter Certificate ID" />
+      <button onclick="verifyCertificate()">Verify</button>
+      <div id="verifyResult"></div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

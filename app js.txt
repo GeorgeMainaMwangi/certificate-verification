@@ -1,0 +1,43 @@
+let certificates = {};
+
+function issueCertificate() {
+  const certificateId = document.getElementById("certificateId").value.trim();
+  const studentName = document.getElementById("studentName").value.trim();
+  const courseName = document.getElementById("courseName").value.trim();
+  const dateIssued = document.getElementById("dateIssued").value.trim();
+
+  if (!certificateId || !studentName || !courseName || !dateIssued) {
+    document.getElementById("issueStatus").innerText = "Please fill all fields.";
+    return;
+  }
+
+  if (certificates[certificateId]) {
+    document.getElementById("issueStatus").innerText = "Certificate already exists.";
+    return;
+  }
+
+  certificates[certificateId] = {
+    studentName,
+    courseName,
+    dateIssued
+  };
+
+  document.getElementById("issueStatus").innerText = "Certificate issued successfully!";
+}
+
+function verifyCertificate() {
+  const verifyId = document.getElementById("verifyId").value.trim();
+  const resultDiv = document.getElementById("verifyResult");
+
+  if (certificates[verifyId]) {
+    const cert = certificates[verifyId];
+    resultDiv.innerHTML = `
+      <p><strong>Status:</strong> Valid Certificate</p>
+      <p><strong>Student Name:</strong> ${cert.studentName}</p>
+      <p><strong>Course Name:</strong> ${cert.courseName}</p>
+      <p><strong>Date Issued:</strong> ${cert.dateIssued}</p>
+    `;
+  } else {
+    resultDiv.innerHTML = `<p><strong>Status:</strong> Certificate not found</p>`;
+  }
+}
