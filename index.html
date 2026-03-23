@@ -3,31 +3,49 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Certificate Verification System</title>
+  <title>Blockchain Certificate Verification System</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
     <h1>Blockchain Certificate Verification System</h1>
+    <p class="subtitle">Certificate issuance and verification platform</p>
 
-    <div class="card">
-      <h2>Issue Certificate</h2>
+    <div class="grid">
+      <div class="card">
+        <h2>Admin Login</h2>
+        <input type="text" id="adminUsername" placeholder="Admin Username" />
+        <input type="password" id="adminPassword" placeholder="Admin Password" />
+        <button onclick="adminLogin()">Login</button>
+        <p id="loginStatus"></p>
+      </div>
+
+      <div class="card">
+        <h2>Verify Certificate</h2>
+        <input type="text" id="verifyId" placeholder="Enter Certificate ID" />
+        <button onclick="verifyCertificate()">Verify</button>
+        <div id="verifyResult"></div>
+      </div>
+    </div>
+
+    <div class="card hidden" id="adminPanel">
+      <h2>Admin Panel - Issue Certificate</h2>
       <input type="text" id="certificateId" placeholder="Certificate ID" />
       <input type="text" id="studentName" placeholder="Student Name" />
       <input type="text" id="courseName" placeholder="Course Name" />
       <input type="text" id="dateIssued" placeholder="Date Issued" />
       <button onclick="issueCertificate()">Issue Certificate</button>
       <p id="issueStatus"></p>
-    </div>
 
-    <div class="card">
-      <h2>Verify Certificate</h2>
-      <input type="text" id="verifyId" placeholder="Enter Certificate ID" />
-      <button onclick="verifyCertificate()">Verify</button>
-      <div id="verifyResult"></div>
+      <div id="qrSection" class="hidden">
+        <h3>Certificate QR Code</h3>
+        <div id="qrcode"></div>
+        <p id="qrLink"></p>
+      </div>
     </div>
   </div>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
